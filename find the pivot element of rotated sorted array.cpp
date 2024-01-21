@@ -1,25 +1,33 @@
 #include<iostream>
 using namespace std;
 
- int getPivot(int arr[],int n)
+int getPivot(int arr[],int n)
 {
-    int s=0;
-    int e = n-1;
-    int mid=s+(e-s)/2;
+    int low=0;
+    int high = n-1;
 
-    while (s<e){
-    if(arr[mid]>arr[0])
+    while (low<=high){
+        int mid=low+(high-low)/2;
+        int next=(mid+1+n)%n;
+        int previous=(mid-1+n)%n;
+    if(arr[mid]<=arr[next]&& arr[mid]<arr[previous])
     {
-        s=mid+1;
+        return mid;
     }
-    else{
-        e=mid;
+    else if(arr[low]<=arr[high])
+    {
+        return low;
     }
-    mid=s+(e-s)/2;
+    else if(arr[mid]>=arr[low]){
+        low=mid+1;
     }
-    return arr[s];
-    
+    else if(arr[mid]<=arr[low]){
+        high=mid-1;
+    }
 }
+return -1;
+}
+
 
 int main(){
 int arr[5]={11,12,14,1,2};
